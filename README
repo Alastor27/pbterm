@@ -1,0 +1,185 @@
+This program allows to interact with shells avalable on the
+Pocktbook. It is intended for Pocketbook models with a touch
+screen (it has been tested with a PB622 and PB623, but hope-
+fully will work also with other models). It is loosely based
+on the poterm program by (I assume) Mr. Fedorchenko (as avai-
+lable from <http://fedorchenko.net/pb.php>).
+
+The Communication with the shell is per default done using a
+pseudoterminal. If a pseudoterminal can't be used due to
+missing permissions (as was the case with older firmware
+versions) a set of pipes is used instead (which results in
+slightly reduced cabalilities).
+
+NOTE: I found that on the PB622 with firmware version 4.0.373
+      the program didn't start (or crashed shortly after it
+      had been started). Upgrading to the newest firmware
+      version available for the PB622, 4.2, fixed the pro-
+      blem. On the PB623 I only did tests with the currently
+      newest firmware, 4.3.
+
+WARNING: When using the terminal you're able to e.g. delete
+         files and do other things you can't do using just the
+         normal graphical interface. So you can delete or modify
+         important data from the device without the program stop-
+         ping you. It's your responsibility to make sure this
+         doesn't happen. Don't use this program if you don't
+         feel comfortable with using a command line shell and
+         have some knowledge of how things work under Unix. E.g.
+         if you enter a command (DON'T EVEN THINK ABOUT TRYING
+         THIS!) like "rm -r" in the toplevel directory ALL files
+         not especially protected (and e.g. none of your books
+         are) will vanish and can't be recovered - there's no
+         waste bin! Make sure you know what each command will
+         do and that you didn't misspell it. Keep current back-
+         ups handy. You have been warned!
+
+To install the program simply copy "pterm.app" to the directory
+"applications" of your Pocketbook. You can optionally also copy
+the file "pbterm.cfg" to "system/config" and modify a number ofd
+properties of the program by changing this file. There's also
+a keyboard layout file, 'pbterm.kbd', which adds the '|' character
+to the default english keyboard layout. If you want to use it
+copy the file to 'system/share/pbterm/' (if necessary create that
+dirctory). The keyboard file can also places somewhere else, the
+location can be set in the configuration file.
+
+When the program is running a short tab on most of the screen area
+(the exceptions are small areas in the upper left and right hand
+corner and the lower left hand quarter of the screen) brings up
+the on-screen keyboard to let you enter shell commands (the ash
+shell from BusyBox and already installe on the device gets used
+per default). The command and the results returned by the shell
+are shown on the screen. Also pressing the menu button brings up
+the keyboard.
+
+If there are more output lines than fit onto the screen you can
+scroll using vertical swipes. The number of lines you can scroll
+up and down is in order not to waste memory (a somewhat scarce
+resource on these devices) limited to 1024 lines. This limit is
+configurable, you can, as many other settings, modify it via
+the configuration file.
+
+If you shortly press the button with the triangle pointing
+right or up (depending on orientation) "recording" is started.
+While recording is on all commands you enter as well as the
+shells replies get written to a log file which then can be
+downloaded afterwards. While in recording mode a black square
+is shown in the right upper hand corner of the screen. To stop
+recording press the same button again. Alteratively recording
+can also be switched on and off by tapping in the upper right
+hand corner of the screen.
+
+To increase or decrease the font size keep the forward or back-
+ward button pressed down for some time. The default font size
+(as well as the font itself) can be set via the configuration
+file. If the version of the libinkview library on your device
+supports it also two-finger guestures (moving them apart to
+increase and pulling them together to ecrease the fint size)
+may work
+
+A long tap on the screen (or a short press on the "backward"
+button or a short tab into the lower left hand region of the
+screen, about a quarter of its width and height) brings up the
+on-screen menu. This menu currently has six entries. The first
+one is for a submenu that shows previously entered commands,
+with the newest on top. Selecting one brings up the on-screen
+keyboard with that command already set in the input field of
+the keyboard (where you normally find the last command entered).
+The list of commands may become longer than than fits on the
+screen, in which case you can scroll. Again there's also a
+configurable limit on the commands the program stores, which
+per default is set to 50. All commands entered get saved to a
+file (also configurable) when the program exits. This file is
+read in again the next time the program gets started.
+
+The next entry is another submenu, labeled "User command"
+which may contain commands (or parts of commands) that you
+find you use very often. The get read from a file which per
+default is "system/share/pbterm/user.cmd"(but that's adjustable
+via the configuration file. Simply put the commands you tend
+to use often in here, one commmand per line, and they will
+appear in the submenu in the same order.
+
+The third entry also is a submenu, "Send CRTL", that lets you
+send a "Ctrl-C", "Ctrl-D" or "Ctrl-Z" or "Ctrl-[" to the shell
+(which in a normal terminal would be achieved by pressing the
+<CRTL> key together with either 'c', 'd' or 'z' or, for the
+last, the <ESC> key). Note that this submenu is disabled if
+communication with the shell must be done via pipes instead
+of a pseudoterminal. "^C" is used to kill a programm that you
+started from the command line and "^Z" to suspend it (to be
+be reactivated via the 'fg' or 'bg' command). "^D"  hould only
+be used in case you started a program that waits for input from
+you - it signals it that no more input will ever be made. Be
+careful with this control character, if the shell receives it
+instead of some program you started from the shell the shell
+itself will accept it and quit, and thereby the whole terminal
+program,
+
+The fourth submenu lets you switch between the custom keyboard
+layout coming with this program and the default keyboard(s) -
+as long as the custom keyboard file can be found and hasn't
+been disabled via the configuration file - otherwise this
+submenu is disabled.
+
+The remaining two entries in the on-screen menu allow you to
+rotate the screen and to exit the program.
+
+Beside using the on-screen menu the program can also be quit
+by entering 'exit' in the on-screen keyboard or by a short
+tap in the upper left-hand corner.
+
+The log file used per default is "system/share/pbterm/pbterm.log",
+(on the disk appearing when the device is attached to a computer
+via USB). This can be changed via the configuration file, named
+"system/config/pbterm.cfg".
+
+The configuration file "pbterm.cfg" coming with the program
+contains a list of all settings the program knows about (with
+values that are more or les the default settings of the pro-
+gram) and a short description of its (very simple) syntax.
+
+The file for storing commands is "system/share/pbterm/pbterm.cmd"
+per default (but the location can be modified via the configu-
+ration file. It just contains commands, one per line (empty
+lines and those starting with a '#' are skipped). You may
+edit it and e.g. insert further commands manually. Just
+remember that there's an upper limit on the number of commands
+(modifiable via the configuration file) and only that many
+commands will be read from the command file.
+
+The program per default tries to read in a layout file for the
+on-screen keyboard from 'system/share/pbterm/pbterm.kbd'. This
+is a slightly modifier layout for the english keyboard, with
+the major difference being that the missing '|' character has
+been added. The configuration file allows you to select a
+different layout file (or none). If the file does not exist
+or is disabled via the configuration file the normal keyboard
+is used.
+
+The file with the commands that you often use, per default you
+should create it as "/system/hare/pbterm/user.cmd", may contain
+one command per line. Empty lines or lines starting with a hash
+mark ('#') are skipped. If the very last character of a line is
+a hash mark then this command will be send to the shell imme-
+diately, i.e. the keyboard won't pop up to let you edit this
+command.
+
+The program is not 100% bullet-proof. When trying to "view" a
+largish binary file I had it crashing, I suspect due to memory
+exhaustion (debugging is a bit difficult;-) Alse the way it has
+to interact with the shell imposes some restrictions.
+
+The program comes with full source code (under the GPL3). Feel
+free to change and improve on it as you wish as long as you
+distribute it also with making the sources available under
+the GPL3.
+
+For compiling you may have to tweak the CMakeList.txt file,
+which in it's current form assumes the the 'pbterm' directory
+is in the 'sources' directory of the SDK.
+
+25/9/2013   Jens Thoms Toerring
+            Email:     jt@toerring.de>
+            Homepage:  http://toerring.de

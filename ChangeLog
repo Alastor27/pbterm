@@ -1,0 +1,98 @@
+2013-09-02 Jens Thoms Toerring    <jt@toerring.de>
+
+	* Version 1.0: first public release
+
+2013-09-03 Jens Thoms Toerring    <jt@toerring.de>
+
+	* Version 1.0: Use pseudoterminal instead of pipes for
+	communication with the shell
+
+	* Version 1.1.1: Bug fix that resulted in crash when more than
+	'max_lines' where sent by the shell
+
+2013-09-04 Jens Thoms Toerring    <jt@toerring.de>
+
+	* Version 1.1.2: In the "Prev. commands" submneu commands are now
+	shown in reverse chronological order to allow easier access to
+	more recent commands
+
+2013-09-05 Jens Thoms Toerring    <jt@toerring.de>
+
+	* Version 1.2: Second submenu added to the on-screen menu to
+	allow sending '^C' and '^Z' for job control.
+
+	* Version 1.3: Switched to non-blocking reads from PTY. Logger
+	now can be used as an std::ostream and messages can be logged
+	before the log file has been opened. Bug in Config module that
+	prevented setting a command file fixed.
+
+	* Version 1.3.1: Fix to address the potential problem of CloseApp()
+	not immediately shutting down the program on errors starting the
+	shell and setting up the communication channels. Thanks to
+	'rkomar' from the www.mobilreader.com PocketBook developers forum
+	for making me aware of this possibility.
+
+2013-09-09 Jens Thoms Toerring    <jt@toerring.de>
+
+	* Version 1.3.2: Some improvements in the Logger when switching	
+	output stream
+
+2013-09-10 Jens Thoms Toerring    <jt@toerring.de>
+
+	* Version 1.4: Internal communication now based on a "message
+	passing" system in order to completely decouple all subsystems.
+	Added custom keyboard that has the missing '|' character. On-
+	screen menu can now also be opened by a shirt tap into the
+	lower left hand corner of the screen (about a quarter of
+	its width and height).
+
+	* Version 1.4.1: Typos and outdated comments corrected.
+
+2013-09-11 Jens Thoms Toerring    <jt@toerring.de>
+
+	* Version 1.4.2: Some more cleanup.
+
+2013-09-11 Jens Thoms Toerring    <jt@toerring.de>
+
+	* Version 1.4.3: Potential buffer overrun due to missing
+	documentation and bug in libinkview fixed.
+
+2013-09-14 Jens Thoms Toerring    <jt@toerring.de>
+
+	* Version 1.4.4: Minibug-fix, very first tap wasn't reacted on.
+
+2013-09-15 Jens Thoms Toerring    <jt@toerring.de>
+
+	* Version 1.4.5: Fixed bug in keybpard module that kept one from
+	entering more than 4 characters in the keyboard. Thanks to
+	'paolog' from the www.mobilreader.com PocketBook developers forum
+	for making me aware of it.
+
+2013-09-17 Jens Thoms Toerring    <jt@toerring.de>
+
+	* Version 1.5: If pseudoterminal can't be used due to missing
+	permissions pipes are used instead for communication with shell.
+
+	* Version 1.6: On request by 'paolog' new submenu for switching
+	between custom and default keyboad added.
+
+2013-09-17 Jens Thoms Toerring    <jt@toerring.de>
+
+	* Version 1.7: Font size change step size added to configuration.
+	If available functions not supported by the current SDK are used
+	to center menus below the finger and to alllow two-finger
+	guestires for changing the font size.
+
+2013-09-18 Jens Thoms Toerring    <jt@toerring.de>
+
+	* Version 1.7.1: Small improvements in pointer handling
+
+2013-09-18 Jens Thoms Toerring    <jt@toerring.de>
+
+	* Version 1.7.2: Cleanup of typos and in the messaging system
+
+2013-09-25 Jens Thoms Toerring    <jt@toerring.de>
+
+	* Version 1.8: As 'paolog' proposed there's now a new submenu
+	containing commands that the user considers to be used very often
+	and are read from a file where the user entered them.
